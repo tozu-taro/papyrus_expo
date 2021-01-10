@@ -1,14 +1,9 @@
 import { StatusBar } from "expo-status-bar"
 import React from "react"
 import { StyleSheet, Button, Text, View } from "react-native"
-import { NavigationContainer, RouteProp } from "@react-navigation/native"
-import { createStackNavigator, StackNavigationProp } from "@react-navigation/stack"
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { SafeAreaProvider } from "react-native-safe-area-context"
-import MaterialCommunityIcons from 'react-native-vector-icons/FontAwesome'
-import { ScreenStack } from "react-native-screens"
+import { RouteProp } from "@react-navigation/native"
+import { StackNavigationProp } from "@react-navigation/stack"
 import { SearchStackParamList } from "../routers/SearchStacks"
-
 
 type SearchScreenRouteProp = RouteProp<SearchStackParamList, 'Search'>
 
@@ -16,7 +11,6 @@ type SearchScreenNavigationProp = StackNavigationProp<
   SearchStackParamList,
   'Search'
 >
-
 
 type SearchProps = {
   route: SearchScreenRouteProp

@@ -1,16 +1,20 @@
+import { RouteProp } from "@react-navigation/native"
+import { StackNavigationProp } from "@react-navigation/stack"
 import { StatusBar } from "expo-status-bar"
 import React from "react"
 import { StyleSheet, Button, Text, View } from "react-native"
-import { NavigationContainer, RouteProp } from "@react-navigation/native"
-import { createStackNavigator, StackNavigationProp } from "@react-navigation/stack"
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { SafeAreaProvider } from "react-native-safe-area-context"
-import MaterialCommunityIcons from 'react-native-vector-icons/FontAwesome'
+import { OtherStackParamList } from "../routers/OtherStacks"
 
+type OtherScreenRouteProp = RouteProp<OtherStackParamList, 'Other'>
+
+type SearchScreenNavigationProp = StackNavigationProp<
+  OtherStackParamList,
+  'Other'
+>
 
 type Props = {
-  // route: OtherScreenRouteProp
-  // navigation: BookShelfScreenNavigationProp
+  route: OtherScreenRouteProp
+  navigation: SearchScreenNavigationProp
 }
 
 const OtherScreen: React.VFC<Props> = () => {
@@ -27,7 +31,6 @@ const OtherScreen: React.VFC<Props> = () => {
 }
 
 export default OtherScreen
-
 
 const styles = StyleSheet.create({
   container: {

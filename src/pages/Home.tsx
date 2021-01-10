@@ -1,27 +1,20 @@
 import { StatusBar } from "expo-status-bar"
 import React from "react"
-import { StyleSheet, Button, Text, View, ToolbarAndroidBase } from "react-native"
-import { NavigationContainer, RouteProp } from "@react-navigation/native"
-import { createStackNavigator, StackNavigationProp } from "@react-navigation/stack"
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { SafeAreaProvider } from "react-native-safe-area-context"
-import MaterialCommunityIcons from 'react-native-vector-icons/FontAwesome'
-import Bookshelf from "./Bookshelf"
+import { StyleSheet, Button, Text, View } from "react-native"
+import { RouteProp } from "@react-navigation/native"
+import { StackNavigationProp } from "@react-navigation/stack"
 import { HomeStackParamList } from "../routers/HomeStacks"
 
 type HomeScreenRouteProp = RouteProp<HomeStackParamList, 'Home'>
 
-type BookShelfScreenNavigationProp = StackNavigationProp<
+type HomeScreenNavigationProp = StackNavigationProp<
   HomeStackParamList,
   'Bookshelf'
 >
-// NavigationScreenProp<NavigationState, NavigationParams> の場合は型付けされているものの、対象が絞られていないため、実行時にエラーが起こる可能性あり
-
-
 
 type Props = {
   route: HomeScreenRouteProp
-  navigation: BookShelfScreenNavigationProp
+  navigation: HomeScreenNavigationProp
 }
 
 const HomeScreen: React.VFC<Props> = (props) => {
@@ -46,8 +39,6 @@ export default HomeScreen
 
 
 //TODO ------------後にCSSに書き出す--------------
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -1,16 +1,24 @@
 import { StatusBar } from "expo-status-bar"
 import React from "react"
-import { StyleSheet, Button, Text, View } from "react-native"
-import { RouteProp } from "@react-navigation/native"
+import { ScrollView, StyleSheet, View } from "react-native"
+import { CompositeNavigationProp, RouteProp } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { HomeStackParamList } from "../routers/HomeStacks"
+import { bookshelfs } from "../../data"
+import BookshelfLine from "../organisms/BookshelfLine"
+import { BaseColors } from "../../colors"
+
 
 type HomeScreenRouteProp = RouteProp<HomeStackParamList, 'Home'>
 
-type HomeScreenNavigationProp = StackNavigationProp<
-  HomeStackParamList,
-  'Bookshelf'
->
+export type HomeScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<
+    HomeStackParamList,
+    'Bookshelf'
+  >, StackNavigationProp<
+    HomeStackParamList,
+    'BookDetails'
+  >>
 
 type Props = {
   route: HomeScreenRouteProp
@@ -20,30 +28,24 @@ type Props = {
 const HomeScreen: React.VFC<Props> = (props) => {
   return (
     <View style={styles.container}>
-      <Text>Hello World!</Text>
-      <Button
-        title="Go to 本棚"
-        onPress={() => {
-          props.navigation.navigate("Bookshelf", {
-            bookShelfId: 1
-          })
-        }}
-      />
       <StatusBar style="auto" />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {bookshelfs && bookshelfs.map(bs =>
+          <BookshelfLine bs={bs} navigation={props.navigation} key={bs.name} />
+        )}
+      </ScrollView>
     </View>
   )
 }
 
 export default HomeScreen
 
-
-
 //TODO ------------後にCSSに書き出す--------------
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    borderStartColor: BaseColors.backgroundColor,
     alignItems: "center",
-    justifyContent: "center",
-  },
+    backgroundColor: BaseColors.backgroundColor,
+    flex: 1
+  }
 })

@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/FontAwesome'
 import HomeStacks from "./HomeStacks"
 import SearchStacks from "./SearchStacks"
 import OtherStacks from "./OtherStacks"
+import { BaseColors } from "../../colors"
 
 type RootTabParamList = {
   Home: undefined
@@ -19,23 +20,30 @@ const Tabs = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator tabBarOptions={{
+          tabStyle: {
+            backgroundColor: BaseColors.primary
+          },
+          labelStyle: {
+            color: BaseColors.secondary
+          }
+        }}>
           <Tab.Screen name="Home" component={HomeStacks} options={{
-            tabBarLabel: 'Home',
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home" color={color} size={size} />
+            tabBarLabel: 'ホーム',
+            tabBarIcon: ({ size }) => (
+              <MaterialCommunityIcons name="home" color={BaseColors.secondary} size={size} />
             ),
           }} />
           <Tab.Screen name="Search" component={SearchStacks} options={{
-            tabBarLabel: 'Search',
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="search" color={color} size={size} />
+            tabBarLabel: '検索',
+            tabBarIcon: ({ size }) => (
+              <MaterialCommunityIcons name="search" color={BaseColors.secondary} size={size} />
             ),
           }} />
           <Tab.Screen name="Other" component={OtherStacks} options={{
-            tabBarLabel: 'Other',
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="cog" color={color} size={size} />
+            tabBarLabel: 'その他',
+            tabBarIcon: ({ size }) => (
+              <MaterialCommunityIcons name="cog" color={BaseColors.secondary} size={size} />
             ),
           }} />
         </Tab.Navigator>

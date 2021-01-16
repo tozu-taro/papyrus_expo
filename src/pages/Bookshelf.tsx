@@ -2,7 +2,8 @@ import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { RouteProp } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { HomeStackParamList } from "../routers/HomeStacks"
+import { createHeaderOption, HomeStackParamList } from "../routers/HomeStacks"
+import { bookshelfs } from "../../data"
 
 type BookshelfScreenRouteProp = RouteProp<HomeStackParamList, 'Bookshelf'>
 
@@ -18,6 +19,13 @@ type Props = {
 
 const Bookshelf: React.VFC<Props> = ({ route, navigation }) => {
   const { bookShelfId } = route.params
+  const bookshelf = bookshelfs.find(bs => bs.id === bookShelfId)
+  React.useEffect(() => {
+    if (!bookshelf) return
+    navigation.setOptions(
+      createHeaderOption(bookshelf.name)
+    )
+  }, [bookShelfId])
   return (
     <View style={styles.container}>
       <Text>Bookshelf</Text>
@@ -27,7 +35,6 @@ const Bookshelf: React.VFC<Props> = ({ route, navigation }) => {
 }
 
 export default Bookshelf
-
 
 //TODO ------------後にCSSに書き出す--------------
 const styles = StyleSheet.create({

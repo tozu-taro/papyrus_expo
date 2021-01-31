@@ -1,10 +1,10 @@
 
 import React from "react"
 import { StyleSheet, Text, View, ScrollView } from "react-native"
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { BaseColors } from "../../colors"
-import { books, Bookshelf, bookshelfRelations } from "../../data"
-import { HomeScreenNavigationProp } from '../pages/Home'
+import { widthPercentageToDP as wp } from "react-native-responsive-screen"
+import { BaseColors } from "../../utils/styleConstants"
+import { books, Bookshelf, bookshelfRelations } from "../../utils/data"
+import { HomeScreenNavigationProp } from "../pages/Home"
 
 type Prop = {
   bs: Bookshelf
@@ -38,19 +38,19 @@ const styles = StyleSheet.create({
   books: {
     borderBottomColor: BaseColors.third,
     borderBottomWidth: 8,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
     marginVertical: 12,
-    overflow: 'scroll',
-    width: wp('100%')
+    overflow: "scroll",
+    width: wp("100%")
   },
   book: {
-    backgroundColor: 'gray',
+    backgroundColor: "gray",
     height: 120,
     width: 80,
     marginHorizontal: 12,
-    display: 'flex',
-    alignItems: 'center'
+    display: "flex",
+    alignItems: "center"
   }
 })

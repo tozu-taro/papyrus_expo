@@ -3,20 +3,21 @@ import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { RouteProp } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { createHeaderOption, HomeStackParamList } from "../routers/HomeStacks"
-import { books } from "../../data"
+import { createHeaderOption, HomeStackParamList } from "../../routers/HomeStacks"
+import { books } from "../../utils/data"
+import GenericTemplate from "../templates/GenericTemplate"
 
 
-type HomeScreenRouteProp = RouteProp<HomeStackParamList, 'BookDetails'>
+export type BookDetailsRouteProp = RouteProp<HomeStackParamList, 'BookDetails'>
 
-type HomeScreenNavigationProp = StackNavigationProp<
+export type BookDetailsNavigationProp = StackNavigationProp<
   HomeStackParamList,
   'Bookshelf'
 >
 
 type Props = {
-  route: HomeScreenRouteProp
-  navigation: HomeScreenNavigationProp
+  route: BookDetailsRouteProp
+  navigation: BookDetailsNavigationProp
 }
 
 const BookDetails: React.VFC<Props> = ({ route, navigation }) => {
@@ -29,13 +30,27 @@ const BookDetails: React.VFC<Props> = ({ route, navigation }) => {
       createHeaderOption(book.title)
     )
   }, [bookId])
-  return (
+
+  const createContent = () => (
     <View style={styles.container}>
       <StatusBar style="auto" />
       {book &&
         <Text>{book.title}</Text>
       }
     </View>
+  )
+
+  if (!book) return (
+    <div>404</div>
+  )
+
+  return (
+    <GenericTemplate
+      content={createContent()}
+      navigation={navigation}
+      route={route}
+      title={book.title}
+    />
   )
 }
 

@@ -2,14 +2,15 @@ import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { RouteProp } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { createHeaderOption, HomeStackParamList } from "../routers/HomeStacks"
-import { bookshelfs } from "../../data"
+import { createHeaderOption, HomeStackParamList } from "../../routers/HomeStacks"
+import { bookshelfs } from "../../utils/data"
+import GenericTemplate from "../templates/GenericTemplate"
 
-type BookshelfScreenRouteProp = RouteProp<HomeStackParamList, 'Bookshelf'>
+export type BookshelfScreenRouteProp = RouteProp<HomeStackParamList, "Bookshelf">
 
-type BookShelfScreenNavigationProp = StackNavigationProp<
+export type BookShelfScreenNavigationProp = StackNavigationProp<
   HomeStackParamList,
-  'Bookshelf'
+  "Bookshelf"
 >
 
 type Props = {
@@ -26,11 +27,23 @@ const Bookshelf: React.VFC<Props> = ({ route, navigation }) => {
       createHeaderOption(bookshelf.name)
     )
   }, [bookShelfId])
+
+  const createContent = () => {
+    return (
+      <View style={styles.container}>
+        <Text>Bookshelf</Text>
+        <Text>{bookShelfId}</Text>
+      </View>
+    )
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Bookshelf</Text>
-      <Text>{bookShelfId}</Text>
-    </View>
+    <GenericTemplate
+      content={createContent()}
+      title={Bookshelf.name}
+      navigation={navigation}
+      route={route}
+    />
   )
 }
 

@@ -18,8 +18,6 @@ interface Props {
   route: GenericsRoute
 }
 
-// type GenericTemplateProps = <T, U>(props: Props<T, U>) => React.ReactElement<Props<T, U>>
-
 const GenericTemplate: React.VFC<Props> = (props) => {
   return (
     <React.Fragment>

@@ -8,7 +8,6 @@ import GenericTemplate from "../templates/GenericTemplate"
 
 export type OtherScreenRouteProp = RouteProp<OtherStackParamList, "Other">
 
-// export type SearchScreenNavigationProp = StackNavigationProp<
 export type OtherScreenNavigationProp = StackNavigationProp<
   OtherStackParamList,
   "Other"

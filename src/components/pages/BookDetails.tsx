@@ -3,7 +3,7 @@ import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { RouteProp } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { createHeaderOption, HomeStackParamList } from "../../routers/HomeStacks"
+import { HomeStackParamList } from "../../routers/HomeStacks"
 import { books } from "../../utils/data"
 import GenericTemplate from "../templates/GenericTemplate"
 
@@ -26,9 +26,7 @@ const BookDetails: React.VFC<Props> = ({ route, navigation }) => {
 
   React.useEffect(() => {
     if (!book) return
-    navigation.setOptions(
-      createHeaderOption(book.title)
-    )
+
   }, [bookId])
 
   const createContent = () => (

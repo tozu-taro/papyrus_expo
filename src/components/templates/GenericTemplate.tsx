@@ -6,10 +6,13 @@ import { SearchScreenNavigationProp, SearchScreenRouteProp } from "../pages/Sear
 import { OtherScreenNavigationProp, OtherScreenRouteProp } from "../pages/Other"
 import { BookDetailsRouteProp, BookDetailsNavigationProp } from '../pages/BookDetails'
 import { BookShelfScreenNavigationProp, BookshelfScreenRouteProp } from "../pages/Bookshelf"
+import { BarcodeScannerScreenNavigationProp, BarcodeScannerScreenRouteProp } from "../organisms/BarcodeScanner"
+import { SafeAreaProvider } from "react-native-safe-area-context"
+import { SearchResultScreenNavigationProp, SearchResultScreenRouteProp } from "../pages/SearchResult"
 
-export type GenericsNavigation = HomeScreenNavigationProp | SearchScreenNavigationProp | OtherScreenNavigationProp | BookDetailsNavigationProp | BookShelfScreenNavigationProp
+export type GenericsRoute = HomeScreenRouteProp | SearchScreenRouteProp | OtherScreenRouteProp | BookDetailsRouteProp | BookshelfScreenRouteProp | BarcodeScannerScreenRouteProp | SearchResultScreenRouteProp
 
-export type GenericsRoute = HomeScreenRouteProp | SearchScreenRouteProp | OtherScreenRouteProp | BookDetailsRouteProp | BookshelfScreenRouteProp
+export type GenericsNavigation = HomeScreenNavigationProp | SearchScreenNavigationProp | OtherScreenNavigationProp | BookDetailsNavigationProp | BookShelfScreenNavigationProp | BarcodeScannerScreenNavigationProp | SearchResultScreenNavigationProp
 
 interface Props {
   content: ReactNode
@@ -20,7 +23,7 @@ interface Props {
 
 const GenericTemplate: React.VFC<Props> = (props) => {
   return (
-    <React.Fragment>
+    <SafeAreaProvider>
       <StatusBar style="auto" />
       <HeaderComponent
         title={props.title}
@@ -28,7 +31,7 @@ const GenericTemplate: React.VFC<Props> = (props) => {
         route={props.route}
       />
       {props.content}
-    </React.Fragment>
+    </SafeAreaProvider>
   )
 }
 

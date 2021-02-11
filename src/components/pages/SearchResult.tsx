@@ -28,7 +28,7 @@ const SearchResult: React.VFC<Props> = ({ navigation, route }) => {
   return (
     <GenericTemplate
       content={createContent()}
-      title="探す"
+      title="検索結果"
       navigation={navigation}
       route={route}
     />

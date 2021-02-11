@@ -44,14 +44,11 @@ const BarcodeScanner: React.VFC<Props> = ({ navigation, route }) => {
   const fetchBooks = async (URL: string) => {
     try {
       const response = await axios.get(URL)
-      // console.log("response", response)
       //本の情報を取得する
-      // console.log('response.data.Items[0].Item', response.data.Items[0].Item)
       bookInfo(response.data.Items[0].Item)
       alert('OK')
     } catch (error) {
       alert('エラー')
-      // resetSession()
     }
   }
 

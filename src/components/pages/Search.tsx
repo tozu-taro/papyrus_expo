@@ -7,6 +7,7 @@ import { Button, SearchBar } from 'react-native-elements'
 import { BaseColors } from '../../utils/styleConstants'
 import Feather from 'react-native-vector-icons/Feather'
 import GenericTemplate from '../templates/GenericTemplate'
+import { ScrollView } from 'react-native-gesture-handler'
 
 export type SearchScreenRouteProp = RouteProp<SearchStackParamList, 'Details'>
 
@@ -41,36 +42,38 @@ const SearchScreen: React.VFC<Props> = ({ navigation, route }) => {
 
   const createContent = () => {
     return (
-      <View style={styles.container}>
-        <View style={styles.searchbarWrap}>
-          <SearchBar
-            ref={searchbar}
-            onChangeText={setSearchValue}
-            value={searchValue}
-            placeholder='キーワード(本のタイトル、著者名)'
-            containerStyle={styles.formField}
-            inputStyle={{ backgroundColor: '#ffffff' }}
-            inputContainerStyle={{ backgroundColor: '#ffffff' }}
-            round
-            keyboardType="ascii-capable"
-            returnKeyLabel="検索"
-            onSubmitEditing={handleOnKeyPress}
-          />
+      <ScrollView keyboardShouldPersistTaps="handled">
+        <View style={styles.container}>
+          <View style={styles.searchbarWrap}>
+            <SearchBar
+              ref={searchbar}
+              onChangeText={setSearchValue}
+              value={searchValue}
+              placeholder='キーワード(本のタイトル、著者名)'
+              containerStyle={styles.formField}
+              inputStyle={{ backgroundColor: '#ffffff' }}
+              inputContainerStyle={{ backgroundColor: '#ffffff' }}
+              round
+              returnKeyLabel="検索"
+              onSubmitEditing={handleOnKeyPress}
+              returnKeyType="search"
+            />
 
+          </View>
+          <View style={styles.btnWrap}>
+            <Button
+              icon={<Feather name="camera" size={42} color={BaseColors.secondary} />}
+              title={"本のバーコードをスキャン"}
+              onPress={() => {
+                navigation.navigate('BarcodeScanner')
+              }
+              }
+              buttonStyle={styles.btnStyle}
+              titleStyle={styles.btnTitle}
+            />
+          </View>
         </View>
-        <View style={styles.btnWrap}>
-          <Button
-            icon={<Feather name="camera" size={42} color={BaseColors.secondary} />}
-            title={"本のバーコードをスキャン"}
-            onPress={() => {
-              navigation.navigate('BarcodeScanner')
-            }
-            }
-            buttonStyle={styles.btnStyle}
-            titleStyle={styles.btnTitle}
-          />
-        </View>
-      </View>
+      </ScrollView>
     )
   }
 

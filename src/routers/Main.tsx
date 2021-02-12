@@ -1,6 +1,5 @@
 import React from "react"
 import { NavigationContainer } from "@react-navigation/native"
-import { StackCardInterpolationProps, StackNavigationOptions, TransitionSpecs } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import HomeStacks from "./HomeStacks"
 import SearchStacks from "./SearchStacks"
@@ -28,8 +27,8 @@ const Tabs = () => {
           color: BaseColors.secondary
         },
       }}
-        tabBar={({ navigation, state }) =>
-          <BottomTab navigation={navigation} state={state} />
+        tabBar={(props) =>
+          <BottomTab {...props} />
         }
       >
         <Tab.Screen name="Home" component={HomeStacks} />

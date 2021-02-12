@@ -5,15 +5,26 @@ import { BaseColors, iconSize } from "../../utils/styleConstants"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 
 import { NavigationHelpers, ParamListBase, TabNavigationState } from "@react-navigation/native"
-import { BottomTabNavigationEventMap } from "@react-navigation/bottom-tabs/lib/typescript/src/types"
+import { BottomTabDescriptorMap, BottomTabNavigationEventMap } from "@react-navigation/bottom-tabs/lib/typescript/src/types"
+import { TouchableOpacity } from "react-native-gesture-handler"
 
 interface Props {
   navigation: NavigationHelpers<ParamListBase, BottomTabNavigationEventMap>
   state: TabNavigationState<Record<string, object | undefined>>
+  descriptors: BottomTabDescriptorMap
 }
 
-const BottomTab: React.VFC<Props> = ({ navigation, state }) => {
+const TabNames = {
+  Home: 'home',
+  Search: 'search',
+  Other: 'cog'
+} as const
 
+type TabType = typeof TabNames
+type TabName = keyof TabType
+type IconName = typeof TabNames[keyof typeof TabNames]
+
+const BottomTab: React.VFC<Props> = ({ navigation, state, descriptors }) => {
   const [stackRouteIndex, setStackRouteIndex] = React.useState<number>()
   const [stackRoutes, setStackRoutes] = React.useState<any[]>()
 
@@ -26,27 +37,58 @@ const BottomTab: React.VFC<Props> = ({ navigation, state }) => {
     }
   }, [state])
 
+  const getIconName = (icon: TabName): IconName => {
+    const result = Object.keys(TabNames).find(t => t === icon) as TabName
+    return TabNames[result]
+  }
+
   const CreateBottomTab = () => {
     return (
       <View style={styles.container}>
-        <View style={styles.iconWrap}
-          onTouchStart={() => navigation.navigate('Home')}
-        >
-          <FontAwesome name="home" color={BaseColors.secondary} size={iconSize.medium} />
-          <Text style={styles.label}>ホーム</Text>
-        </View>
-        <View style={styles.iconWrap}
-          onTouchStart={() => navigation.navigate('Search')}
-        >
-          <FontAwesome name="search" color={BaseColors.secondary} size={iconSize.medium} />
-          <Text style={styles.label}>検索</Text>
-        </View>
-        <View style={styles.iconWrap}
-          onTouchStart={() => navigation.navigate('Other')}
-        >
-          <FontAwesome name="cog" color={BaseColors.secondary} size={iconSize.medium} />
-          <Text style={styles.label}>その他</Text>
-        </View>
+        {state.routes.map((route, index) => {
+          const { options } = descriptors[route.key]
+          const label =
+            options.tabBarLabel !== undefined
+              ? options.tabBarLabel
+              : options.title !== undefined
+                ? options.title
+                : route.name
+
+          const isFocused = state.index === index
+
+          const onPress = () => {
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+              canPreventDefault: true,
+            })
+
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name)
+            }
+          }
+
+          return (
+            <TouchableOpacity
+              accessibilityRole="button"
+              accessibilityState={isFocused ? { selected: true } : {}}
+              accessibilityLabel={options.tabBarAccessibilityLabel}
+              onPress={onPress}
+              style={styles.iconWrap}
+              key={label.toString()}
+            >
+              <FontAwesome
+                name={getIconName(label as TabName)}
+                color={isFocused ? BaseColors.secondary : '#666'}
+                size={iconSize.medium} />
+              <Text
+                style={{ ...styles.label, color: isFocused ? BaseColors.secondary : '#666' }}
+              >
+                {label}
+              </Text>
+            </TouchableOpacity>
+          )
+        })}
       </View>
     )
   }
@@ -64,13 +106,14 @@ const BottomTab: React.VFC<Props> = ({ navigation, state }) => {
   }
 }
 
+
+
 export default BottomTab
 
 const styles = StyleSheet.create({
   container: {
     height: 80,
     backgroundColor: BaseColors.primary,
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginLeft: "auto",
@@ -85,7 +128,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   label: {
-    marginTop: 4,
+    marginTop: 2,
+    paddingBottom: 4,
     color: BaseColors.secondary,
     fontWeight: 'bold'
   }

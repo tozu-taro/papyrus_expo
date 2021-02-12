@@ -106,8 +106,6 @@ const BottomTab: React.VFC<Props> = ({ navigation, state, descriptors }) => {
   }
 }
 
-
-
 export default BottomTab
 
 const styles = StyleSheet.create({

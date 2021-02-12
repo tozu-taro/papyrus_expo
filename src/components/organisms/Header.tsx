@@ -36,7 +36,7 @@ const HeaderComponent: React.VFC<Props> = (props) => {
             onPress={() => props.navigation.goBack()}
           />
         )
-      case 'Bookshelf':
+      case 'BookDetails':
         return (
           <AntDesign
             name="arrowleft"
@@ -53,6 +53,15 @@ const HeaderComponent: React.VFC<Props> = (props) => {
             color={BaseColors.secondary}
             onPress={() => props.navigation.goBack()}
           />)
+      case 'Result':
+        return (
+          <AntDesign
+            name="arrowleft"
+            size={26}
+            color={BaseColors.secondary}
+            onPress={() => props.navigation.goBack()}
+          />
+        )
       default:
         break
     }

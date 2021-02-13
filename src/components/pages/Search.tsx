@@ -42,8 +42,8 @@ const SearchScreen: React.VFC<Props> = ({ navigation, route }) => {
 
   const createContent = () => {
     return (
-      <ScrollView keyboardShouldPersistTaps="handled">
-        <View style={styles.container}>
+      <View style={styles.container}>
+        <ScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.searchbarWrap}>
             <SearchBar
               ref={searchbar}
@@ -72,8 +72,8 @@ const SearchScreen: React.VFC<Props> = ({ navigation, route }) => {
               titleStyle={styles.btnTitle}
             />
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     )
   }
 
@@ -90,10 +90,6 @@ const SearchScreen: React.VFC<Props> = ({ navigation, route }) => {
 export default SearchScreen
 
 const styles = StyleSheet.create({
-  barcode: {
-    width: "100%",
-    height: "40%"
-  },
   container: {
     flex: 1,
     backgroundColor: BaseColors.backgroundColor

@@ -1,34 +1,78 @@
-import { StatusBar } from "expo-status-bar"
-import React from "react"
-import { StyleSheet, Button, Text, View } from "react-native"
-import { RouteProp } from "@react-navigation/native"
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import { CompositeNavigationProp, RouteProp } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { SearchStackParamList } from "../../routers/SearchStacks"
-import GenericTemplate from "../templates/GenericTemplate"
+import { Button, SearchBar } from 'react-native-elements'
+import { BaseColors } from '../../utils/styleConstants'
+import Feather from 'react-native-vector-icons/Feather'
+import GenericTemplate from '../templates/GenericTemplate'
+import { ScrollView } from 'react-native-gesture-handler'
 
-export type SearchScreenRouteProp = RouteProp<SearchStackParamList, "Search">
+export type SearchScreenRouteProp = RouteProp<SearchStackParamList, 'Details'>
 
-export type SearchScreenNavigationProp = StackNavigationProp<
-  SearchStackParamList,
-  "Search"
->
+export type SearchScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<
+    SearchStackParamList,
+    'Details'
+  >, StackNavigationProp<
+    SearchStackParamList,
+    'Result'
+  >>
 
-type SearchProps = {
+type Props = {
   route: SearchScreenRouteProp
   navigation: SearchScreenNavigationProp
 }
 
-const SearchScreen: React.VFC<SearchProps> = ({ navigation, route }) => {
+const SearchScreen: React.VFC<Props> = ({ navigation, route }) => {
+  const [searchValue, setSearchValue] = React.useState<string>('')
+  const searchbar = React.useRef<any>()
+
+  React.useEffect(() => {
+    return () => searchbar.current.focus()
+  })
+
+  const handleOnKeyPress = () => {
+    if (!searchValue) return
+    navigation.navigate('Result', {
+      searchValue: searchValue
+    })
+  }
 
   const createContent = () => {
     return (
       <View style={styles.container}>
-        <Text>Hello World!</Text>
-        <Button
-          title="Go to 検索結果"
-          onPress={() => console.log("検索結果へ移動するよ")}
-        />
-        <StatusBar style="auto" />
+        <ScrollView keyboardShouldPersistTaps="handled">
+          <View style={styles.searchbarWrap}>
+            <SearchBar
+              ref={searchbar}
+              onChangeText={setSearchValue}
+              value={searchValue}
+              placeholder='キーワード(本のタイトル、著者名)'
+              containerStyle={styles.formField}
+              inputStyle={{ backgroundColor: '#ffffff' }}
+              inputContainerStyle={{ backgroundColor: '#ffffff' }}
+              round
+              returnKeyLabel="検索"
+              onSubmitEditing={handleOnKeyPress}
+              returnKeyType="search"
+            />
+
+          </View>
+          <View style={styles.btnWrap}>
+            <Button
+              icon={<Feather name="camera" size={42} color={BaseColors.secondary} />}
+              title={"本のバーコードをスキャン"}
+              onPress={() => {
+                navigation.navigate('BarcodeScanner')
+              }
+              }
+              buttonStyle={styles.btnStyle}
+              titleStyle={styles.btnTitle}
+            />
+          </View>
+        </ScrollView>
       </View>
     )
   }
@@ -48,8 +92,45 @@ export default SearchScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: BaseColors.backgroundColor
   },
+  searchbarWrap: {
+    justifyContent: 'center',
+    display: 'flex',
+    width: '100%'
+  },
+  formField: {
+    backgroundColor: BaseColors.backgroundColor,
+    width: '90%',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    marginTop: 12,
+    padding: 0,
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+  },
+  btnWrap: {
+    marginTop: 32,
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+  },
+  btnStyle: {
+    backgroundColor: 'transparent',
+    borderWidth: 6,
+    borderRadius: 12,
+    borderColor: BaseColors.secondary,
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    paddingVertical: 20,
+    paddingHorizontal: 28
+  },
+  btnTitle: {
+    color: BaseColors.secondary,
+    fontWeight: 'bold',
+    letterSpacing: 1,
+    marginLeft: 12,
+  }
 })

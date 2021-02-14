@@ -2,7 +2,7 @@ import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { RouteProp } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { createHeaderOption, HomeStackParamList } from "../../routers/HomeStacks"
+import { HomeStackParamList } from "../../routers/HomeStacks"
 import { bookshelfs } from "../../utils/data"
 import GenericTemplate from "../templates/GenericTemplate"
 
@@ -23,9 +23,6 @@ const Bookshelf: React.VFC<Props> = ({ route, navigation }) => {
   const bookshelf = bookshelfs.find(bs => bs.id === bookShelfId)
   React.useEffect(() => {
     if (!bookshelf) return
-    navigation.setOptions(
-      createHeaderOption(bookshelf.name)
-    )
   }, [bookShelfId])
 
   const createContent = () => {

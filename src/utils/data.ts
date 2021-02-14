@@ -170,4 +170,34 @@ const bookshelfRelations: BookshelfRelation[] = [
   },
 ]
 
-export {BookshelfRelation, Bookshelf, Book, bookshelfRelations, bookshelfs, books}
+type searchedBook = {
+  ISBN: number
+  title: string
+  // desc: string
+  // memo: string
+  // publisher: string
+  // published_data: Date
+  // author: string
+  // count: number
+  // finished_date: Date
+  // added_date: Date
+  // amazon_link: string
+}
+
+const searchedBooks: searchedBook[] = [
+  {
+    title: "検索結果1",
+    ISBN: 123456789,
+  },
+  {
+    title: "検索結果2",
+    ISBN: 123456789,
+  },
+  {
+    title: "検索結果3",
+    ISBN: 123456789,
+  },
+]
+
+export type {BookshelfRelation, Bookshelf, Book, searchedBook}
+export {bookshelfRelations, bookshelfs, books, searchedBooks}

@@ -4,6 +4,7 @@ import { Header } from "react-native-elements"
 import { BaseColors, fontsize, iconSize } from "../../utils/styleConstants"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import AntDesign from "react-native-vector-icons/AntDesign"
+import Entypo from 'react-native-vector-icons/Entypo'
 import { GenericsNavigation, GenericsRoute } from "../templates/GenericTemplate"
 
 interface Props {
@@ -27,11 +28,40 @@ const HeaderComponent: React.VFC<Props> = (props) => {
   const switchLeftComponent = () => {
     switch (props.route.name) {
       case 'BookDetails':
-        return (<AntDesign name="arrowleft" size={26} color={BaseColors.secondary} onPress={() => props.navigation.goBack()} />)
-        break
-      case 'Bookshelf':
-        return (<AntDesign name="arrowleft" size={26} color={BaseColors.secondary} onPress={() => props.navigation.goBack()} />)
-        break
+        return (
+          <AntDesign
+            name="arrowleft"
+            size={26}
+            color={BaseColors.secondary}
+            onPress={() => props.navigation.goBack()}
+          />
+        )
+      case 'BookDetails':
+        return (
+          <AntDesign
+            name="arrowleft"
+            size={26}
+            color={BaseColors.secondary}
+            onPress={() => props.navigation.goBack()}
+          />
+        )
+      case 'BarcodeScanner':
+        return (
+          <Entypo
+            name="cross"
+            size={26}
+            color={BaseColors.secondary}
+            onPress={() => props.navigation.goBack()}
+          />)
+      case 'Result':
+        return (
+          <AntDesign
+            name="arrowleft"
+            size={26}
+            color={BaseColors.secondary}
+            onPress={() => props.navigation.goBack()}
+          />
+        )
       default:
         break
     }
@@ -60,11 +90,5 @@ const HeaderComponent: React.VFC<Props> = (props) => {
     />
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: BaseColors.secondary
-  }
-})
 
 export default HeaderComponent
